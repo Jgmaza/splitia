@@ -30,7 +30,7 @@ const MOCK_EMAILS: RawEmail[] = [
   },
   {
     id: "mock-3",
-    subject: "Compra por $15.000 en Terpel",
+    subject: "Compra por $15.350 en Terpel",
     body: "Compra por $15.000 en Terpel el día de hoy. Gracias por usar Terpel.",
     date: new Date().toISOString(),
   },
@@ -38,6 +38,12 @@ const MOCK_EMAILS: RawEmail[] = [
     id: "mock-4",
     subject: "Compra por $52.000 en Éxito",
     body: "Compra por $52.000 en Éxito el día de hoy. Gracias por usar Éxito.",
+    date: new Date().toISOString(),
+  },
+  {
+    id: "mock-5",
+    subject: "Compra por 5,00 USD en OpenAI",
+    body: "Compra por 5,00 USD en OpenAI el día de hoy. Gracias por usar OpenAI.",
     date: new Date().toISOString(),
   },
 ];

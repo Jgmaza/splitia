@@ -12,10 +12,13 @@ export default function ChatPage() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  /** True hasta terminar scan-gmail + primera carga del agente (scraping de movimientos) */
+  const [scanningMail, setScanningMail] = useState(true);
 
   useEffect(() => {
     // Scan Gmail (mock) into email_expenses, then load first pending expense in chat.
     const bootstrap = async () => {
+      setScanningMail(true);
       setLoading(true);
       try {
         try {
@@ -43,6 +46,7 @@ export default function ChatPage() {
         }
       } finally {
         setLoading(false);
+        setScanningMail(false);
       }
     };
 
@@ -108,13 +112,32 @@ export default function ChatPage() {
             </div>
           </div>
         </div>
-        <ChatWindow messages={messages} />
-        <ChatInput
-          value={input}
-          onChange={setInput}
-          onSend={sendMessage}
-          loading={loading}
-        />
+        {scanningMail ? (
+          <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 py-12">
+            <div
+              className="h-10 w-10 rounded-full border-2 border-zinc-600 border-t-emerald-500 animate-spin"
+              aria-hidden
+            />
+            <div className="text-center">
+              <p className="text-sm font-medium text-zinc-200">
+                Escaneando movimientos del correo
+              </p>
+              <p className="mt-1 text-xs text-zinc-500">
+                Buscando notificaciones de gastos…
+              </p>
+            </div>
+          </div>
+        ) : (
+          <>
+            <ChatWindow messages={messages} />
+            <ChatInput
+              value={input}
+              onChange={setInput}
+              onSend={sendMessage}
+              loading={loading}
+            />
+          </>
+        )}
       </div>
     </div>
   );
